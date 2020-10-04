@@ -44,7 +44,7 @@ public class IntroGameState : GameState
     public override void Start()
     {
         nextState = this;
-        SignalManager.Inst.AddListener<ButtonPressedSignal>(onButtonPressed);
+        SignalManager.Inst.AddListener<TutorialCompleteSignal>(onTutorialComplete);
     }
 
     public override GameState Update()
@@ -54,14 +54,12 @@ public class IntroGameState : GameState
 
     public override void Finish()
     {
-        SignalManager.Inst.RemoveListener<ButtonPressedSignal>(onButtonPressed);
+        SignalManager.Inst.RemoveListener<TutorialCompleteSignal>(onTutorialComplete);
     }
 
-    private void onButtonPressed(Signal signal)
+    private void onTutorialComplete(Signal signal)
     {
-        ButtonPressedSignal buttonPressedSignal = (ButtonPressedSignal)signal;
-        if(buttonPressedSignal.InputButton == InputButton.SPACE)
-            nextState = new PlayGameState();
+        nextState = new PlayGameState();
     }
 }
 

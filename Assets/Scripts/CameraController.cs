@@ -6,11 +6,10 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController Inst;
 
-    [SerializeField]
-    private float positionMoveSpeed = 1f;
+    public float positionMoveSpeed = 1f;
 
     [SerializeField]
-    private float focalPointMoveSpeed = 1f;
+    public float RotationSpeed { get { return rotationSpeed; } }
 
     [SerializeField]
     private float rotationSpeed = 1f;
@@ -31,7 +30,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        currentState = new CameraFollowPlayerState();
+        currentState = new CameraIntroState();
         currentState.Start();
     }
 
@@ -46,26 +45,9 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void MoveFocalPointTowardsHolder(GameObject holder)
+    public void AttachToPlayerFollowHolder()
     {
-        if(Vector3.Distance(focalPoint.transform.position, holder.transform.position) < focalPointMoveSpeed * Time.deltaTime)
-        {
-            focalPoint.transform.position = holder.transform.position;
-            focalPoint.transform.SetParent(holder.transform);
-        }
-        else
-            focalPoint.transform.position = Vector3.MoveTowards(focalPoint.transform.position, holder.transform.position, focalPointMoveSpeed * Time.deltaTime);
-    }
-
-    public void MoveCameraTowardsHolder(GameObject holder)
-    {
-        if(Vector3.Distance(transform.position, holder.transform.position) <= positionMoveSpeed * Time.deltaTime)
-        {
-            transform.position = holder.transform.position;
-            transform.SetParent(holder.transform);
-        }
-        else
-            transform.position = Vector3.MoveTowards(transform.position, holder.transform.position, positionMoveSpeed * Time.deltaTime);
+        Camera.main.transform.SetParent(FollowPlayerCameraHolder.transform);
     }
 
     public void LookAtFocalPoint(Vector3 targetUp)
@@ -81,19 +63,52 @@ public abstract class CameraState
     public virtual void Finish() {}
 }
 
+public class CameraIntroState : CameraState
+{
+    private CameraState nextState;
+
+    public override void Start()
+    {
+        nextState = this;
+        SignalManager.Inst.AddListener<TutorialCompleteSignal>(onTutorialCompleted);
+    }
+
+    public override CameraState Update()
+    {
+        return nextState;
+    }
+
+    public override void Finish()
+    {
+        SignalManager.Inst.RemoveListener<TutorialCompleteSignal>(onTutorialCompleted);
+    }
+
+    private void onTutorialCompleted(Signal signal)
+    {
+        nextState = new CameraFollowPlayerState();
+    }
+}
+
 public class CameraFollowPlayerState : CameraState
 {
     private CameraState nextState;
     public override void Start()
     {
+        CameraController.Inst.AttachToPlayerFollowHolder();
         nextState = this;
     }
 
     public override CameraState Update()
     {
-        //CameraController.Inst.MoveCameraTowardsHolder(CameraController.Inst.FollowPlayerCameraHolder);
-        //CameraController.Inst.MoveFocalPointTowardsHolder(CameraController.Inst.FollowPlayerFocalPointHolder);
-        //CameraController.Inst.LookAtFocalPoint(CameraController.Inst.FollowPlayerCameraHolder.transform.up);
+        GameObject holder = CameraController.Inst.FollowPlayerCameraHolder;
+        if(Vector3.Distance(Camera.main.transform.localPosition, Vector3.zero) > CameraController.Inst.positionMoveSpeed * Time.deltaTime)
+            Camera.main.transform.localPosition = Vector3.MoveTowards(Camera.main.transform.localPosition, Vector3.zero, CameraController.Inst.positionMoveSpeed * Time.deltaTime);
+        else
+            Camera.main.transform.localPosition = Vector3.zero;
+        if(Quaternion.Angle(Camera.main.transform.rotation, Quaternion.Euler(0f, 180f, 0f)) >= CameraController.Inst.RotationSpeed * Time.deltaTime)
+            Camera.main.transform.localRotation = Quaternion.RotateTowards(Camera.main.transform.localRotation, Quaternion.Euler(0f, 180f, 0f), CameraController.Inst.RotationSpeed * Time.deltaTime);
+        else
+            Camera.main.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
         return nextState;
     }
 }

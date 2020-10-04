@@ -37,10 +37,18 @@ public class MainCharacter : MonoBehaviour
     [SerializeField]
     private GameObject cameraHolder;
 
+    [SerializeField]
+    private ParticleSystem ExplodeParticles;
+
+    [SerializeField]
+    private Renderer Avatar;
+
     private PlayerState currentState;
 
     public float lookX = 0f;
     public float lookY = 0f;
+
+    public GameObject Collector;
 
     private GameObject landingPosition = null;
     public GameObject LandingPostion {
@@ -202,6 +210,12 @@ public class MainCharacter : MonoBehaviour
 
         return Vector3.zero;
     }
+
+    public void Explode()
+    {
+        ExplodeParticles.Emit(100);
+        Avatar.enabled = false;
+    }
 }
 
 public enum MoveDirection {UP, DOWN, LEFT, RIGHT, NONE}
@@ -299,7 +313,10 @@ public class PlayerIdleState : PlayerState
         {
             if(mainCharacter.SetLandingPosition())
             {
-                nextState = new PlayerJumpState(mainCharacter);
+                if(mainCharacter.LandingPostion.transform.parent.name == "Planet")
+                    nextState = new PlayerHitPlanetState(mainCharacter);
+                else
+                   nextState = new PlayerJumpState(mainCharacter);
             }
             else
             {
@@ -355,8 +372,13 @@ public class PlayerRunUpState : PlayerState
     private void onButtonPressed(Signal signal)
     {
         ButtonPressedSignal buttonPressedSignal = (ButtonPressedSignal)signal;
-        if(buttonPressedSignal.InputButton == InputButton.DOWN)
+        
+        if(mainCharacter.SetLandingPosition())
+            nextState = new PlayerJumpState(mainCharacter);
+        else if(buttonPressedSignal.InputButton == InputButton.DOWN)
             nextState = new PlayerIdleState(mainCharacter);
+
+            
     }
 
     private void onButtonReleased(Signal signal)
@@ -419,7 +441,9 @@ public class PlayerRunDownState : PlayerState
     private void onButtonPressed(Signal signal)
     {
         ButtonPressedSignal buttonPressedSignal = (ButtonPressedSignal)signal;
-        if(buttonPressedSignal.InputButton == InputButton.UP)
+        if(mainCharacter.SetLandingPosition())
+            nextState = new PlayerJumpState(mainCharacter);
+        else if(buttonPressedSignal.InputButton == InputButton.UP)
             nextState = new PlayerIdleState(mainCharacter);
     }
 
@@ -483,7 +507,9 @@ public class PlayerRunLeftState : PlayerState
     private void onButtonPressed(Signal signal)
     {
         ButtonPressedSignal buttonPressedSignal = (ButtonPressedSignal)signal;
-        if(buttonPressedSignal.InputButton == InputButton.RIGHT)
+        if(mainCharacter.SetLandingPosition())
+            nextState = new PlayerJumpState(mainCharacter);
+        else if(buttonPressedSignal.InputButton == InputButton.RIGHT)
             nextState = new PlayerIdleState(mainCharacter);
     }
 
@@ -547,7 +573,9 @@ public class PlayerRunRightState : PlayerState
     private void onButtonPressed(Signal signal)
     {
         ButtonPressedSignal buttonPressedSignal = (ButtonPressedSignal)signal;
-        if(buttonPressedSignal.InputButton == InputButton.LEFT)
+        if(mainCharacter.SetLandingPosition())
+            nextState = new PlayerJumpState(mainCharacter);
+        else if(buttonPressedSignal.InputButton == InputButton.LEFT)
             nextState = new PlayerIdleState(mainCharacter);
     }
 
@@ -604,8 +632,43 @@ public class PlayerFlailState : PlayerState
 {
     public PlayerFlailState (MainCharacter mainCharacter) : base (mainCharacter) {}
 
+    private float flailTimer = 5f;
+
+    private Vector3 direction;
+
+    public override void Start()
+    {
+        direction = Camera.main.transform.forward.normalized;
+        mainCharacter.StartJump();
+    }
+
     public override PlayerState Update()
     {
+        mainCharacter.transform.position = mainCharacter.transform.position + (direction * mainCharacter.FlySpeed);
+        mainCharacter.transform.Rotate(3f, 0f, 2f);
+        flailTimer -= Time.deltaTime;
+        if(flailTimer <= 0f)
+            SignalManager.Inst.FireSignal(new FlailedToDeathSignal());
+        return this;
+    }
+}
+
+public class PlayerHitPlanetState : PlayerState
+{
+    public PlayerHitPlanetState (MainCharacter mainCharacter) : base (mainCharacter) {} 
+
+    public override void Start()
+    {
+        mainCharacter.StartJump();
+    }
+
+    public override PlayerState Update()
+    {
+        if(mainCharacter.Fly())
+        {
+            SignalManager.Inst.FireSignal(new PlayerCollidedWithPlanetSignal());
+            mainCharacter.Explode();
+        }
         return this;
     }
 }

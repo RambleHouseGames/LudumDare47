@@ -64,6 +64,10 @@ public class InputManager : MonoBehaviour
         {
             SignalManager.Inst.FireSignal(new ButtonReleasedSignal(InputButton.RIGHT));
         }
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SignalManager.Inst.FireSignal(new ButtonPressedSignal(InputButton.P));
+        }
     }
 
     public Vector2 GetMoveVector()
@@ -83,4 +87,4 @@ public class InputManager : MonoBehaviour
     }
 }
 
-public enum InputButton {SPACE, LEFTCLICK, UP, DOWN, LEFT, RIGHT}
+public enum InputButton {SPACE, LEFTCLICK, UP, DOWN, LEFT, RIGHT, P}

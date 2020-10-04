@@ -72,3 +72,9 @@ public class MouseMovedSignal : Signal
 
 public class JumpStartedSignal : Signal {}
 public class PlayerLandedSignal : Signal {}
+public class TutorialCompleteSignal : Signal {}
+
+public class FlyInFinishedSignal : Signal {}
+public class FlailedToDeathSignal : Signal {}
+public class PlayerCollidedWithPlanetSignal : Signal {}
+public class IceCollectedSignal : Signal {}
