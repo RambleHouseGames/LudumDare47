@@ -39,6 +39,39 @@ public abstract class GameState
 
 public class IntroGameState : GameState
 {
+    private GameState nextState;
+
+    public override void Start()
+    {
+        nextState = this;
+        SignalManager.Inst.AddListener<ButtonPressedSignal>(onButtonPressed);
+    }
+
+    public override GameState Update()
+    {
+        return nextState;
+    }
+
+    public override void Finish()
+    {
+        SignalManager.Inst.RemoveListener<ButtonPressedSignal>(onButtonPressed);
+    }
+
+    private void onButtonPressed(Signal signal)
+    {
+        ButtonPressedSignal buttonPressedSignal = (ButtonPressedSignal)signal;
+        if(buttonPressedSignal.InputButton == InputButton.SPACE)
+            nextState = new PlayGameState();
+    }
+}
+
+public class PlayGameState : GameState
+{
+    public override void Start()
+    {
+        SignalManager.Inst.FireSignal(new GoSignal());
+    }
+
     public override GameState Update()
     {
         return this;

@@ -37,12 +37,38 @@ public class SignalManager : MonoBehaviour
 }
 
 public abstract class Signal {}
-public class SignalTest : Signal 
+public class GoSignal : Signal {}
+public class ButtonPressedSignal : Signal 
 {
-    public string TestString;
+    public InputButton InputButton;
 
-    public SignalTest(string testString)
+    public ButtonPressedSignal (InputButton inputButton)
     {
-        this.TestString = testString;
+        this.InputButton = inputButton;
     }
 }
+
+public class ButtonReleasedSignal : Signal
+{
+    public InputButton InputButton;
+
+    public ButtonReleasedSignal (InputButton inputButton)
+    {
+        this.InputButton = inputButton;
+    }
+}
+
+public class MouseMovedSignal : Signal
+{
+    public float DeltaX;
+    public float DeltaY;
+
+    public MouseMovedSignal (float deltaX, float deltaY)
+    {
+        this.DeltaX = deltaX;
+        this.DeltaY = deltaY;
+    }
+}
+
+public class JumpStartedSignal : Signal {}
+public class PlayerLandedSignal : Signal {}

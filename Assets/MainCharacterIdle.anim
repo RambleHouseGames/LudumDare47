@@ -4053,7 +4053,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: MainCharacter001/metarig/spine/spine.001/spine.004/spine.006
+    path: MainCharacter001/metarig/spine/thigh.R/shin.R
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4063,7 +4063,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: MainCharacter001/metarig/spine/spine.001/spine.004/spine.006
+    path: MainCharacter001/metarig/spine/thigh.R/shin.R
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4073,7 +4073,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: MainCharacter001/metarig/spine/spine.001/spine.004/spine.006
+    path: MainCharacter001/metarig/spine/thigh.R/shin.R
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4443,7 +4443,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: MainCharacter001/metarig/spine/thigh.R/shin.R
+    path: MainCharacter001/metarig/spine/spine.001/spine.004/spine.006
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4453,7 +4453,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: MainCharacter001/metarig/spine/thigh.R/shin.R
+    path: MainCharacter001/metarig/spine/spine.001/spine.004/spine.006
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4463,7 +4463,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: MainCharacter001/metarig/spine/thigh.R/shin.R
+    path: MainCharacter001/metarig/spine/spine.001/spine.004/spine.006
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
