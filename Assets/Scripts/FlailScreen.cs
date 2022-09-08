@@ -12,9 +12,19 @@ public class FlailScreen : MonoBehaviour
     [SerializeField]
     private Text continueText;
 
+    [SerializeField]
+    private DeathType deathType;
+
     void Start()
     {
-        SignalManager.Inst.AddListener<FlailedToDeathSignal>(onFlailedToDeath);
+        if (deathType == DeathType.Flail)
+        {
+            SignalManager.Inst.AddListener<FlailedToDeathSignal>(onFlailedToDeath);
+        }
+        else
+        {
+            SignalManager.Inst.AddListener<PlayerCollidedWithPlanetSignal>(onFlailedToDeath);
+        }
     }
 
     private void onFlailedToDeath(Signal signal)
@@ -30,5 +40,6 @@ public class FlailScreen : MonoBehaviour
         if(buttonPressedSignal.InputButton == InputButton.SPACE)
             SceneManager.LoadScene("MainScene");
     }
-
 }
+
+enum DeathType { Flail, Crash }

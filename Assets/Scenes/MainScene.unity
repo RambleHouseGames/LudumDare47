@@ -878,7 +878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &657994564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1164,7 +1164,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765577245}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -1226,47 +1226,29 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767964389}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.83319664}
   m_LocalScale: {x: 0.19420512, y: 0.18262018, z: 0.18262018}
   m_Children: []
   m_Father: {fileID: 1085754564}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!328 &767964391
-VideoPlayer:
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &767964391
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767964389}
   m_Enabled: 1
-  m_VideoClip: {fileID: 0}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 0}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 767964393}
-  m_TargetMaterialProperty: _MainTex
-  m_RenderMode: 3
-  m_AspectRatio: 2
-  m_DataSource: 0
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources:
-  - {fileID: 0}
-  m_DirectAudioVolumes:
-  - 1
-  m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 0
-  m_SkipOnDrop: 1
-  m_Looping: 0
-  m_WaitForFirstFrame: 0
-  m_FrameReadyEventEnabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc213c539c73fa468a6a5d9058159cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blankMaterial: {fileID: 2100000, guid: 160bf45b82aba46aabd1ff57c92e9a94, type: 2}
+  openMouthMaterial: {fileID: 2100000, guid: 480037fe826a5a94eb27791609de1ab3, type: 2}
+  closedMouthMaterial: {fileID: 2100000, guid: 8ec795c9d5586464aa440a4acb5e41cf, type: 2}
+  frameTime: 0.5
 --- !u!64 &767964392
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1534,6 +1516,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1623,6 +1606,102 @@ MonoBehaviour:
   focalPoint: {fileID: 2094214173}
   FollowPlayerCameraHolder: {fileID: 653392508}
   FollowPlayerFocalPointHolder: {fileID: 448750706}
+--- !u!82 &963194230
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9e990dfeb33f283459c127475430d837, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1082401496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1746,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082401496}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -1692,7 +1771,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PRESS [SPACE] TO PLAY AGAIN
+  m_Text: 'PRESS [SPACE] TO PLAY AGAIN
+
+    Pro Tip:  [P] skips the intro!!'
 --- !u!222 &1082401499
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2288,7 +2369,7 @@ GameObject:
   - component: {fileID: 1624127356}
   - component: {fileID: 1624127355}
   m_Layer: 5
-  m_Name: FlailedToDeathPanel (1)
+  m_Name: CrashedToDeathPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2329,6 +2410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 765577247}
   continueText: {fileID: 1082401498}
+  deathType: 1
 --- !u!114 &1624127356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2549,6 +2631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 759304468}
   continueText: {fileID: 1693524518}
+  deathType: 0
 --- !u!1 &1654133714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,7 +2793,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PRESS [SPACE] TO PLAY AGAIN
+  m_Text: 'PRESS [SPACE] TO PLAY AGAIN
+
+    Pro Tip:  [P] skips the intro!!'
 --- !u!222 &1693524519
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2841,6 +2926,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 603091253}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &1935034913 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4764195275183155033, guid: cb7bc4685ff154498b8758101459a3c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1478998159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2003185129
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,9 +3057,10 @@ MonoBehaviour:
   myAnimator: {fileID: 2032577925}
   cameraRotateSpeed: 5
   flySpeed: 40
-  runSpeed: 5
+  runSpeed: 2.5
   cameraPivot: {fileID: 448750706}
   cameraHolder: {fileID: 653392508}
+  Avatar: {fileID: 1935034913}
   lookX: 0
   lookY: 0
   Collector: {fileID: 1819851186}
@@ -3005,6 +3097,8 @@ MonoBehaviour:
   myAnimator: {fileID: 2083069768}
   LeftPropeller: {fileID: 1926215583}
   RightPropeller: {fileID: 1397350605}
+  AudioSource: {fileID: 963194230}
+  HackScreen: {fileID: 767964391}
 --- !u!95 &2083069768
 Animator:
   serializedVersion: 3

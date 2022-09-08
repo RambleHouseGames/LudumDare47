@@ -48,6 +48,8 @@ public class CameraController : MonoBehaviour
     public void AttachToPlayerFollowHolder()
     {
         Camera.main.transform.SetParent(FollowPlayerCameraHolder.transform);
+        Camera.main.transform.localPosition = Vector3.zero;
+        Camera.main.transform.localRotation = Quaternion.identity;
     }
 
     public void LookAtFocalPoint(Vector3 targetUp)

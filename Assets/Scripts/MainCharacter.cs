@@ -38,9 +38,6 @@ public class MainCharacter : MonoBehaviour
     private GameObject cameraHolder;
 
     [SerializeField]
-    private ParticleSystem ExplodeParticles;
-
-    [SerializeField]
     private Renderer Avatar;
 
     private PlayerState currentState;
@@ -213,7 +210,6 @@ public class MainCharacter : MonoBehaviour
 
     public void Explode()
     {
-        ExplodeParticles.Emit(100);
         Avatar.enabled = false;
     }
 }
